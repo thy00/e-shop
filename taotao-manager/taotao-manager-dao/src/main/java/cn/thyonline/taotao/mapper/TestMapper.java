@@ -1,4 +1,4 @@
-package cn.thyoline.taotao.mapper;
+package cn.thyonline.taotao.mapper;
 
 public interface TestMapper {
     /**

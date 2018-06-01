@@ -9,7 +9,9 @@
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
-    <context:component-scan base-package="cn.thyonline.taotao.service"></context:component-scan>
+    <import resource="applicationContext-dao.xml"/>
+    <import resource="applicationContext-trans.xml"/>
+    <context:component-scan base-package="cn.thyonline.taotao.service"/>
     <!-- 使用dubbo发布服务 -->
     <!-- 名字不能够重复，和随便，用于计算依赖关系，服务调用的情况 -->
     <dubbo:application name="taotao-manager" />
@@ -19,6 +21,6 @@
     <dubbo:protocol name="dubbo" port="20880" />
     <!-- 发布服务 -->
     <dubbo:service interface="cn.thyonline.taotao.service.TestService" ref="testServiceImpl" />
-    <!--<dubbo:service interface="cn.thyonline.taotao.service.ItemService" ref="itemServiceImpl" />-->
+    <dubbo:service interface="cn.thyonline.taotao.service.ItemService" ref="itemServiceImpl" />
     <!--<dubbo:service interface="cn.thyonline.taotao.service.ItemCatService" ref="itemCatServiceImpl" />-->
 </beans>
