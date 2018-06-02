@@ -63,11 +63,7 @@
             <artifactId>jsp-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- 文件上传组件 -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-        </dependency>
+
 
         <!-- dubbo相关 -->
         <dependency>
@@ -92,6 +88,12 @@
         <dependency>
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
+        </dependency>
+
+        <!--分页-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
         </dependency>
 
     </dependencies>

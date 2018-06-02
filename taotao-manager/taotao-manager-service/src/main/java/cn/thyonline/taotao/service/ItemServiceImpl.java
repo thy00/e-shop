@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
         if (page==null) page=1;
-        if (rows==null) rows=20;
+        if (rows==null) rows=30;
         //2 设置分页
         PageHelper.startPage(page,rows);
         //3 执行SQL
@@ -29,8 +29,9 @@ public class ItemServiceImpl implements ItemService{
         //4 取得信息，封装进EasyUIDataGridResult并返回
         PageInfo<TbItem> pageInfo = new PageInfo<>(items);
         EasyUIDataGridResult result=new EasyUIDataGridResult();
-        result.setRow(items);
-        result.setTotal(pageInfo.getSize());
+        result.setRows(pageInfo.getList());
+//        System.out.println("在service查询到的数据数"+pageInfo.getList().size());
+        result.setTotal((int)pageInfo.getTotal());
         return result;
     }
 }

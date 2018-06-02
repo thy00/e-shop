@@ -1,13 +1,17 @@
 package cn.thyonline.taotao.common.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 查询商品的数据返回类型
  */
-public class EasyUIDataGridResult {
+
+public class EasyUIDataGridResult implements Serializable {
+
     private Integer total;
-    private List row;
+
+    private List rows;
 
     public Integer getTotal() {
         return total;
@@ -17,11 +21,12 @@ public class EasyUIDataGridResult {
         this.total = total;
     }
 
-    public List getRow() {
-        return row;
+    public List getRows() {
+        return rows;
     }
 
-    public void setRow(List row) {
-        this.row = row;
+    public void setRows(List rows) {
+        this.rows = rows;
     }
+
 }
