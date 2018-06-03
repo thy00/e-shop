@@ -23,5 +23,4 @@
     <dubbo:service interface="cn.thyonline.taotao.service.TestService" ref="testServiceImpl" />
     <dubbo:service interface="cn.thyonline.taotao.service.ItemService" ref="itemServiceImpl" />
     <dubbo:service interface="cn.thyonline.taotao.service.ItemCatService" ref="itemCatServiceImpl" />
-    <dubbo:service interface="cn.thyonline.taotao.service.PictureService" ref="pictureServiceImpl" />
 </beans>

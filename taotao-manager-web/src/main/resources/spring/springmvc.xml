@@ -9,6 +9,10 @@
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
+
+    <!--加载配置文件-->
+    <context:property-placeholder location="classpath:properties/*.properties"/>
+
     <context:component-scan base-package="cn.thyonline.taotao.controller" />
     <mvc:annotation-driven />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,11 +34,11 @@
     </bean>
 
 
+
     <!-- 引用dubbo服务 -->
     <dubbo:application name="taotao-manager-web"/>
     <dubbo:registry protocol="zookeeper" address="192.168.25.128:2181"/>
     <dubbo:reference interface="cn.thyonline.taotao.service.TestService" id="testService" />
     <dubbo:reference interface="cn.thyonline.taotao.service.ItemService" id="itemService" />
     <dubbo:reference interface="cn.thyonline.taotao.service.ItemCatService" id="itemCatService" />
-    <dubbo:reference interface="cn.thyonline.taotao.service.PictureService" id="pictureService" />
 </beans>

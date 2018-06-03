@@ -35,7 +35,7 @@
     <activemq.version>5.13.0</activemq.version>
     <freemarker.version>2.3.23</freemarker.version>
     <quartz.version>2.2.2</quartz.version>
-    <fastdfs.version>1.2.0</fastdfs.version>
+    <fastdfs.version>1.25</fastdfs.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -230,8 +230,8 @@
       </dependency>
       <!--图片服务器-->
       <dependency>
-        <groupId>fastdfs-client</groupId>
-        <artifactId>fastdfs-client</artifactId>
+        <groupId>fastdfs_client</groupId>
+        <artifactId>fastdfs_client</artifactId>
         <version>${fastdfs.version}</version>
       </dependency>
 
