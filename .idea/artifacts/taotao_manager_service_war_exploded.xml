@@ -21,7 +21,6 @@
           <element id="archive" name="taotao-manager-interface-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="taotao-manager-interface" />
           </element>
-          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
@@ -30,6 +29,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aspects:4.2.4.RELEASE" />

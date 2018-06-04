@@ -20,4 +20,9 @@ public class PageController {
     public String showItemList(@PathVariable("page") String page){
         return page;
     }
+
+    @RequestMapping("/rest/page/{page}")
+    public String showItempageList(@PathVariable("page") String page){
+        return page;
+    }
 }
