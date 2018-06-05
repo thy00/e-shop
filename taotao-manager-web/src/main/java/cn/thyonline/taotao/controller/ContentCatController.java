@@ -34,16 +34,9 @@ public class ContentCatController {
     }
 
     /**
-     * 查询内容服务
-     * url:/content/query/list
-     * 参数：categoryId
-     * 返回：EasyUITreeNode的list集合
-     */
-
-    /**
      * 添加内容服务分类
      * url:/content/category/create
-     * 参数：parentId，name
+     * 参数：parentId，name（传参的时候包装成pojo）
      * 返回：TaotaoResult
      */
     @RequestMapping("/content/category/create")
@@ -54,5 +47,33 @@ public class ContentCatController {
         return  result;
     }
 
+
+    /**
+     * 修改内容服务分类
+     * url:/content/category/update
+     * 参数：parentId，name（传参的时候包装成pojo）
+     * 返回：TaotaoResult
+     */
+    @RequestMapping("/content/category/update")
+    @ResponseBody
+    public TaotaoResult updateContentCat(TbContentCategory category){
+        System.out.println("id为："+category.getParentId()+"名字为："+category.getName());
+        TaotaoResult result = service.updateContentCat(category);
+        return  result;
+    }
+
+    /**
+     * 删除内容服务分类
+     * url:/content/category/delete/
+     * 参数：id
+     * 返回：TaotaoResult
+     */
+    @RequestMapping("/content/category/delete")
+    @ResponseBody
+    public TaotaoResult deleteContentCat(Long id){
+        System.out.println("id为："+id);
+        TaotaoResult result = service.deleteContentCat(id);
+        return  result;
+    }
 
 }

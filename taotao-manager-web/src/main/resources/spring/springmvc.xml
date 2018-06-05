@@ -33,8 +33,6 @@
         <property name="maxUploadSize" value="5242880"></property>
     </bean>
 
-
-
     <!-- 引用dubbo服务 -->
     <dubbo:application name="taotao-manager-web"/>
     <dubbo:registry protocol="zookeeper" address="192.168.25.128:2181"/>
@@ -42,4 +40,5 @@
     <dubbo:reference interface="cn.thyonline.taotao.service.ItemService" id="itemService" />
     <dubbo:reference interface="cn.thyonline.taotao.service.ItemCatService" id="itemCatService" />
     <dubbo:reference interface="cn.thyonline.taotao.content.service.ContentCatService" id="contentCatService" />
+    <dubbo:reference interface="cn.thyonline.taotao.content.service.ContentService" id="contentService" />
 </beans>

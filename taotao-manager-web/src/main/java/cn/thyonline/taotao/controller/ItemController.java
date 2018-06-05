@@ -30,6 +30,7 @@ public class ItemController {
     }
 
     /**
+     * 保存商品
      * url：/item/save
      * 接收参数TbItem和商品描述desc（因为文件比较大独立出了一个表）
      * 返回数据TaotaoResult
@@ -41,6 +42,7 @@ public class ItemController {
         return result;
     }
     /**
+     * 删除商品
      * url:/rest/item/delete
      * 接收参数：商品ID---ids
      * 返回参数TaotaoResult
@@ -77,6 +79,7 @@ public class ItemController {
         return result;
     }
     /**
+     * 商品编辑
      * url：/rest/item/update
      * 接收参数TbItem和商品描述desc（因为文件比较大独立出了一个表）
      * 返回数据TaotaoResult

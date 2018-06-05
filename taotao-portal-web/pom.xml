@@ -13,12 +13,12 @@
     <artifactId>taotao-portal-web</artifactId>
     <packaging>war</packaging>
     <dependencies>
-    <!-- manager-interface接口 -->
-    <!--<dependency>-->
-        <!--<groupId>cn.thyonline</groupId>-->
-        <!--<artifactId>taotao-manager-interface</artifactId>-->
-        <!--<version>0.0.1-SNAPSHOT</version>-->
-    <!--</dependency>-->
+    <!-- content-interface接口 -->
+    <dependency>
+        <groupId>cn.thyonline</groupId>
+        <artifactId>taotao-content-interface</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
     <dependency>
         <groupId>cn.thyonline</groupId>
         <artifactId>taotao-common</artifactId>
