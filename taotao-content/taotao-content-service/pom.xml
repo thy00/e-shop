@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
 
+    <properties>
+        <kotlin.version>1.2.41</kotlin.version>
+    </properties>
+
     <artifactId>taotao-content-service</artifactId>
     <dependencies>
         <!-- taotao dao依赖 -->
@@ -23,6 +27,11 @@
             <groupId>cn.thyonline</groupId>
             <artifactId>taotao-content-interface</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!--jedis依赖-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
         </dependency>
         <!-- spring的依赖 -->
         <!-- Spring -->
@@ -83,7 +92,6 @@
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
         </dependency>
+
     </dependencies>
-
-
 </project>

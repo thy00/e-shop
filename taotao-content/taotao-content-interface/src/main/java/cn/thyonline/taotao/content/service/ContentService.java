@@ -5,6 +5,8 @@ import cn.thyonline.taotao.common.pojo.EasyUIDataGridResult;
 import cn.thyonline.taotao.common.pojo.TaotaoResult;
 import cn.thyonline.taotao.pojo.TbContent;
 
+import java.util.List;
+
 public interface ContentService {
     /**
      * 查询内容服务
@@ -36,4 +38,11 @@ public interface ContentService {
      * 返回参数TaotaoResult
      */
     TaotaoResult deleteContent(Long id);
+    /**
+     * 门户页面大广告显示
+     * url:/index
+     * 接收参数：categoryId
+     * 返回参数List<TbContent>
+     */
+    List<TbContent> getContentListById(Long categoryId);
 }
