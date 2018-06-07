@@ -2,9 +2,6 @@ package cn.thyonline.taotao.common.pojo;
 
 import java.io.Serializable;
 
-/**
- * 
- */
 public class TaotaoResult implements Serializable{
 	
     // 响应业务状态

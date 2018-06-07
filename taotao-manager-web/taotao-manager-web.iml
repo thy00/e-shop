@@ -33,6 +33,7 @@
     <orderEntry type="library" name="fastdfs_client_v1.20" level="project" />
     <orderEntry type="module" module-name="taotao-manager-interface" />
     <orderEntry type="module" module-name="taotao-content-interface" />
+    <orderEntry type="module" module-name="taotao-search-interface" />
     <orderEntry type="module" module-name="taotao-common" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />
