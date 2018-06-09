@@ -6,6 +6,7 @@ import cn.thyonline.taotao.common.pojo.TaotaoResult;
 import cn.thyonline.taotao.search.dao.SearchItemDao;
 import cn.thyonline.taotao.search.mapper.SearchItemMapper;
 import cn.thyonline.taotao.search.service.SearchItemService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.common.SolrInputDocument;
@@ -51,7 +52,11 @@ public class SearchItemServiceImpl implements SearchItemService {
     public SearchResult searchItem(String queryStr, Integer page, Integer rows) throws Exception {
         //1、创建SolrQuery对象，并设置条件
         SolrQuery query=new SolrQuery();
-        query.setQuery(queryStr);
+        if (StringUtils.isNotBlank(queryStr)){
+            query.setQuery(queryStr);
+        }else {
+            query.setQuery("*:*");
+        }
         query.setStart((page-1)*rows);//设置查询的起始
         query.setRows(rows);
         query.set("df","item_title");//默认搜索域

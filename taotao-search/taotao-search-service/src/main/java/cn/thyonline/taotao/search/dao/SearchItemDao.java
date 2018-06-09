@@ -36,10 +36,11 @@ public class SearchItemDao {
         List<SearchItem> searchItems=new ArrayList<>();
         for (SolrDocument document:documents){
             SearchItem item=new SearchItem();
+//            System.out.println((String) document.get("item_category_name"));
             item.setCategory_name((String) document.get("item_category_name"));
-            item.setId((Long) document.get("id"));
+            item.setId(Long.valueOf(document.get("id").toString()));
             item.setImage(String.valueOf(document.get("item_image")));
-            item.setPrice((Long) document.get("item_price"));
+            item.setPrice(Long.valueOf(document.get("item_price").toString()));
             item.setSell_point((String) document.get("item_sell_point"));
             //设置高亮显示
             List<String> list = highLighting.get(document.get("id")).get("item_title");
@@ -55,6 +56,7 @@ public class SearchItemDao {
         //4、将list集合封装进SearchResult返回
         SearchResult result=new SearchResult();
         result.setRecordCount(documents.getNumFound());
+        result.setItemList(searchItems);
         return result;
     }
 }

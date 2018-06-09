@@ -22,17 +22,15 @@ public class SearchItemController {
      * 返回值：modelAndView
      */
     @RequestMapping("/search")
-    public String searchItem(@RequestParam("q") String queryStr, @RequestParam(defaultValue = "1") Integer page, Model model){
-        try {
+    public String searchItem(@RequestParam("q") String queryStr, @RequestParam(defaultValue = "1") Integer page, Model model)throws Exception{
             queryStr=new String(queryStr.getBytes("iso8859-1"),"utf-8");
+//            int i=1/0;
             SearchResult result = service.searchItem(queryStr, page, ITEM_ROWS);
             model.addAttribute("query",queryStr);
             model.addAttribute("totalPages", result.getPageCount());
             model.addAttribute("itemList", result.getItemList());
+            System.out.println("数据的数量是："+result.getItemList().size());
             model.addAttribute("page", page);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return "search";
     }
 }

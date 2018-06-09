@@ -7,8 +7,16 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
-	<bean class="org.apache.solr.client.solrj.impl.HttpSolrServer">
-		<constructor-arg name="baseURL" value="http://192.168.25.128:8080/solr"></constructor-arg>
+	<!--&lt;!&ndash;单机版的solr&ndash;&gt;-->
+	<!--<bean class="org.apache.solr.client.solrj.impl.HttpSolrServer">-->
+		<!--<constructor-arg name="baseURL" value="http://192.168.25.128:8080/solr"></constructor-arg>-->
+	<!--</bean>-->
+	<!-- 集群版solr服务 -->
+	<bean id="cloudSolrServer" class="org.apache.solr.client.solrj.impl.CloudSolrServer">
+		<constructor-arg name="zkHost" value="192.168.25.128:2182,192.168.25.128:2183,192.168.25.128:2184"></constructor-arg>
+		<property name="defaultCollection" value="collection2"></property>
 	</bean>
-	
+
+
+
 </beans>
