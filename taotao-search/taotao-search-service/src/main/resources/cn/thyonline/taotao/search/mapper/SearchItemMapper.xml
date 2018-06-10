@@ -20,4 +20,24 @@
 	AND a.status = 1
 	</select>
 
+	<select id="searchItemById" parameterType="Long" resultType="cn.thyonline.taotao.common.pojo.SearchItem">
+		SELECT
+		a.id,
+		a.title,
+		a.sell_point,
+		a.price,
+		a.image,
+		b. NAME category_name,
+		c.item_desc
+	FROM
+		tb_item a,
+		tb_item_cat b,
+		tb_item_desc c
+	WHERE
+		a.cid = b.id
+	AND a.id = c.item_id
+	AND a.status = 1
+	AND a.id=#{id}
+	</select>
+
 </mapper>

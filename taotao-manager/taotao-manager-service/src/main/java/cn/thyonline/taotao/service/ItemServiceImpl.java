@@ -13,8 +13,15 @@ import cn.thyonline.taotao.pojo.TbItemParam;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import java.util.Date;
 import java.util.List;
 
@@ -28,12 +35,27 @@ public class ItemServiceImpl implements ItemService{
     private TbItemDescMapper itemDescMapper;
     @Autowired
     private TbItemParamMapper itemParamMapper;
+    @Autowired
+    private JmsTemplate jmsTemplate;//消息队列的模板
+    @Resource(name = "topicDestination")
+    Destination destination;//消息队列的类
+
+    @Override
+    public TbItem getItemById(Long itemId) {
+        return itemMapper.selectByPrimaryKey(itemId);
+    }
+
+    @Override
+    public TbItemDesc getItemDescById(Long itemId) {
+        return itemDescMapper.selectByPrimaryKey(itemId);
+    }
+
     //保存商品
     @Override
     public TaotaoResult saveItem(TbItem item, String desc) {
         //1、补全TbItem属性，并添加数据
         //生成ID
-        long id = IDUtils.genItemId();
+        final long id = IDUtils.genItemId();
         item.setId(id);
         //status date
         //商品状态，1-正常，2-下架，3-删除
@@ -50,6 +72,14 @@ public class ItemServiceImpl implements ItemService{
         itemDesc.setCreated(date);
         itemDesc.setUpdated(date);
         itemDescMapper.insert(itemDesc);
+        //添加发送消息的业务逻辑
+        jmsTemplate.send(destination, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                //需要发送的消息
+                return session.createTextMessage(String.valueOf(id));
+            }
+        });
         //3、如果没报错则在这个事务中都保存成功，直接回复保存成功就可以了
         return TaotaoResult.ok();
     }
@@ -147,4 +177,6 @@ public class ItemServiceImpl implements ItemService{
         if (i!=0) return TaotaoResult.ok();
         return TaotaoResult.build(405,"下架失败");
     }
+
+    //
 }

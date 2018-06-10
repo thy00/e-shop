@@ -3,6 +3,7 @@ package cn.thyonline.taotao.service;
 import cn.thyonline.taotao.common.pojo.EasyUIDataGridResult;
 import cn.thyonline.taotao.common.pojo.TaotaoResult;
 import cn.thyonline.taotao.pojo.TbItem;
+import cn.thyonline.taotao.pojo.TbItemDesc;
 
 /**
  * 商品
@@ -44,12 +45,26 @@ public interface ItemService {
      * 接收参数：商品ID---ids
      * 返回参数TaotaoResult
      */
-    public TaotaoResult instockItem(Long id);
+    TaotaoResult instockItem(Long id);
     /**
      * 商品上架
      * url:/rest/item/reshelf
      * 接收参数：商品ID---ids
      * 返回参数TaotaoResult
      */
-    public TaotaoResult reshelfItem(Long id);
+    TaotaoResult reshelfItem(Long id);
+
+    /**
+     * 根据id查询商品
+     * @param itemId
+     * @return
+     */
+    TbItem getItemById(Long itemId);
+
+    /**
+     * 根据id查询商品详情
+     * @param itemId
+     * @return
+     */
+    TbItemDesc getItemDescById(Long itemId);
 }

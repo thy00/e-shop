@@ -2,15 +2,19 @@ package cn.thyonline.taotao.search.dao;
 
 import cn.thyonline.taotao.common.pojo.SearchItem;
 import cn.thyonline.taotao.common.pojo.SearchResult;
+import cn.thyonline.taotao.common.pojo.TaotaoResult;
+import cn.thyonline.taotao.search.mapper.SearchItemMapper;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,8 @@ import java.util.Map;
 public class SearchItemDao {
     @Autowired
     private SolrServer server;
+    @Autowired
+    private SearchItemMapper mapper;
     /**
      * 参数：service层返回的包装好的SolrQuery
      * 返回：SerchResult
@@ -59,4 +65,21 @@ public class SearchItemDao {
         result.setItemList(searchItems);
         return result;
     }
+    public TaotaoResult updateSearchItemById(Long id) throws IOException, SolrServerException {
+        //1、从数据库查询记录
+        SearchItem item = mapper.searchItemById(id);
+        //2、将记录更新到索引库
+        SolrInputDocument document=new SolrInputDocument();
+        document.addField("id", item.getId());
+        document.addField("item_title", item.getTitle());
+        document.addField("item_sell_point", item.getSell_point());
+        document.addField("item_price", item.getPrice());
+        document.addField("item_image", item.getImage());
+        document.addField("item_category_name", item.getCategory_name());
+        document.addField("item_desc", item.getItem_desc());
+        server.add(document);
+        server.commit();
+        return TaotaoResult.ok();
+    }
+
 }
