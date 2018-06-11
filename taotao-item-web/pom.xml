@@ -19,12 +19,6 @@
             <artifactId>taotao-manager-interface</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- common -->
-        <dependency>
-            <groupId>cn.thyonline</groupId>
-            <artifactId>taotao-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -54,6 +48,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
+
         <!-- JSP相关 -->
         <dependency>
             <groupId>jstl</groupId>
@@ -101,6 +96,18 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
         </dependency>
+
+        <!-- activemq -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+        </dependency>
+        <!--静态页面-->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+
 
     </dependencies>
     <!-- 配置tomcat插件 -->

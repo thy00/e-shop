@@ -3,6 +3,7 @@ package cn.thyonline.taotao.service;
 import cn.thyonline.taotao.common.pojo.EasyUIDataGridResult;
 import cn.thyonline.taotao.common.pojo.TaotaoResult;
 import cn.thyonline.taotao.common.utils.IDUtils;
+import cn.thyonline.taotao.common.utils.JsonUtils;
 import cn.thyonline.taotao.mapper.TbItemDescMapper;
 import cn.thyonline.taotao.mapper.TbItemMapper;
 import cn.thyonline.taotao.mapper.TbItemParamMapper;
@@ -10,9 +11,12 @@ import cn.thyonline.taotao.pojo.TbItem;
 import cn.thyonline.taotao.pojo.TbItemDesc;
 import cn.thyonline.taotao.pojo.TbItemExample;
 import cn.thyonline.taotao.pojo.TbItemParam;
+import cn.thyonline.taotao.service.jedis.JedisClient;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -39,15 +43,65 @@ public class ItemServiceImpl implements ItemService{
     private JmsTemplate jmsTemplate;//消息队列的模板
     @Resource(name = "topicDestination")
     Destination destination;//消息队列的类
+    @Autowired
+    private JedisClient client;
+    @Value("${ITEM_INFO_KEY}")
+    private String ITEM_INFO_KEY;
+    @Value("${ITEM_INFO_EXPIRE}")
+    private Integer ITEM_INFO_EXPIRE;
 
     @Override
     public TbItem getItemById(Long itemId) {
-        return itemMapper.selectByPrimaryKey(itemId);
+        //查询缓存如果有数据则使用缓存数据
+        try {
+            String jsonStr = client.get(ITEM_INFO_KEY + ":" + itemId + ":BASE");
+            if (StringUtils.isNotBlank(jsonStr)){
+                //重新设置redis对商品数据的有效期
+                System.out.println("这是使用的缓存！！");
+                client.expire(ITEM_INFO_KEY + ":" + itemId + ":BASE",ITEM_INFO_EXPIRE);
+                return JsonUtils.jsonToPojo(jsonStr,TbItem.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("这是使用的mysql数据库！！");
+        TbItem item = itemMapper.selectByPrimaryKey(itemId);
+        try {
+            //添加缓存
+            client.set(ITEM_INFO_KEY + ":" + itemId + ":BASE",JsonUtils.objectToJson(item));
+            //设置redis对商品数据的有效期
+            client.expire(ITEM_INFO_KEY + ":" + itemId + ":BASE",ITEM_INFO_EXPIRE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 
     @Override
     public TbItemDesc getItemDescById(Long itemId) {
-        return itemDescMapper.selectByPrimaryKey(itemId);
+        //查询缓存如果有数据则使用缓存数据
+        try {
+            String jsonStr = client.get(ITEM_INFO_KEY + ":" + itemId + ":DESC");
+            if (StringUtils.isNotBlank(jsonStr)){
+                System.out.println("这是使用的缓存！！");
+                //重新设置redis对商品数据的有效期
+                client.expire(ITEM_INFO_KEY + ":" + itemId + ":DESC",ITEM_INFO_EXPIRE);
+                return JsonUtils.jsonToPojo(jsonStr,TbItemDesc.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("这是使用的mysql数据库！！");
+        TbItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(itemId);
+        try {
+            //添加缓存
+            client.set(ITEM_INFO_KEY + ":" + itemId + ":DESC",JsonUtils.objectToJson(itemDesc));
+            //设置redis对商品数据的有效期
+            client.expire(ITEM_INFO_KEY + ":" + itemId + ":DESC",ITEM_INFO_EXPIRE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return itemDesc;
     }
 
     //保存商品
