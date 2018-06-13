@@ -1,14 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="taotao-item-web:war exploded">
-    <output-path>$PROJECT_DIR$/taotao-item-web/target/taotao-item-web</output-path>
+  <artifact type="exploded-war" name="taotao-sso-web:war exploded">
+    <output-path>$PROJECT_DIR$/taotao-sso-web/target/taotao-sso-web</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="taotao-item-web" />
+          <element id="module-output" name="taotao-sso-web" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="taotao-manager-interface-0.0.1-SNAPSHOT.jar">
-            <element id="module-output" name="taotao-manager-interface" />
+          <element id="archive" name="taotao-sso-interface-0.0.1-SNAPSHOT.jar">
+            <element id="module-output" name="taotao-sso-interface" />
           </element>
           <element id="archive" name="taotao-manager-pojo-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="taotao-manager-pojo" />
@@ -56,17 +56,12 @@
           <element id="library" level="project" name="Maven: jline:jline:0.9.94" />
           <element id="library" level="project" name="Maven: io.netty:netty:3.7.0.Final" />
           <element id="library" level="project" name="Maven: com.github.sgroschupf:zkclient:0.1" />
-          <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:3.4.2-fix" />
-          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.8" />
-          <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:0.9" />
-          <element id="library" level="project" name="Maven: org.apache.activemq:activemq-all:5.1.0" />
-          <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.23" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/taotao-item-web/target/taotao-item-web/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/taotao-sso-web/target/taotao-sso-web/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="taotao-item-web/web/Web" />
+      <element id="javaee-facet-resources" facet="taotao-sso-web/web/Web" />
     </root>
   </artifact>
 </component>

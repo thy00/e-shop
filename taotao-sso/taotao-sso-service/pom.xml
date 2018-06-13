@@ -3,23 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>taotao-parent</artifactId>
+        <artifactId>taotao-sso</artifactId>
         <groupId>cn.thyonline</groupId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../taotao-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>taotao-item-web</artifactId>
+    <artifactId>taotao-sso-service</artifactId>
     <packaging>war</packaging>
+
     <dependencies>
-        <!-- manager-interface接口 -->
+
+        <!-- taotao dao依赖 -->
         <dependency>
             <groupId>cn.thyonline</groupId>
-            <artifactId>taotao-manager-interface</artifactId>
+            <artifactId>taotao-manager-dao</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--Spring-->
+        <!-- taotao的接口的依赖 -->
+        <dependency>
+            <groupId>cn.thyonline</groupId>
+            <artifactId>taotao-sso-interface</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- spring的依赖 -->
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -49,23 +57,11 @@
             <artifactId>spring-context-support</artifactId>
         </dependency>
 
-        <!-- JSP相关 -->
+        <!--消息队列-->
         <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-
         <!-- dubbo相关 -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -90,39 +86,13 @@
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
         </dependency>
-
-        <!--分页-->
+        <!-- Redis客户端 -->
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
         </dependency>
 
-        <!-- activemq -->
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
-            <version>5.1.0</version>
-        </dependency>
-        <!--静态页面-->
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-        </dependency>
 
 
     </dependencies>
-    <!-- 配置tomcat插件 -->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <port>8086</port>
-                    <path>/</path>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

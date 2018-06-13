@@ -10,13 +10,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>taotao-item-web</artifactId>
+    <artifactId>taotao-sso-web</artifactId>
     <packaging>war</packaging>
     <dependencies>
-        <!-- manager-interface接口 -->
+        <!-- search-interface接口 -->
         <dependency>
             <groupId>cn.thyonline</groupId>
-            <artifactId>taotao-manager-interface</artifactId>
+            <artifactId>taotao-sso-interface</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--Spring-->
@@ -48,7 +48,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
-
         <!-- JSP相关 -->
         <dependency>
             <groupId>jstl</groupId>
@@ -91,24 +90,6 @@
             <artifactId>zkclient</artifactId>
         </dependency>
 
-        <!--分页-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-        </dependency>
-
-        <!-- activemq -->
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
-            <version>5.1.0</version>
-        </dependency>
-        <!--静态页面-->
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-        </dependency>
-
 
     </dependencies>
     <!-- 配置tomcat插件 -->
@@ -118,11 +99,12 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <port>8086</port>
+                    <port>8088</port>
                     <path>/</path>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
