@@ -64,6 +64,12 @@
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
+        <!--servlet-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.apache.commons</groupId>-->
             <!--<artifactId>commons-io</artifactId>-->

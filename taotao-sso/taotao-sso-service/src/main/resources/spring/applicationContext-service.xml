@@ -21,4 +21,5 @@
     <dubbo:protocol name="dubbo" port="20883" />
     <!-- 发布服务 -->
     <dubbo:service interface="cn.thyonline.taotao.sso.service.UserRegisterService" ref="userRegisterServiceImpl"  timeout="300000"/>
+    <dubbo:service interface="cn.thyonline.taotao.sso.service.UserLoginService" ref="userLoginServiceImpl"  timeout="300000"/>
 </beans>

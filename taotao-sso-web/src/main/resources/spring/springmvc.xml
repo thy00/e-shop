@@ -25,4 +25,5 @@
     <dubbo:application name="taotao-sso-web"/>
     <dubbo:registry protocol="zookeeper" address="192.168.25.128:2181"/>
     <dubbo:reference interface="cn.thyonline.taotao.sso.service.UserRegisterService" id="userRegisterService" timeout="300000"/>
+    <dubbo:reference interface="cn.thyonline.taotao.sso.service.UserLoginService" id="userLoginService" timeout="300000"/>
 </beans>
