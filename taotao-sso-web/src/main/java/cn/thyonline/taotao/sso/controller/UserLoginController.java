@@ -5,7 +5,10 @@ import cn.thyonline.taotao.common.utils.CookieUtils;
 import cn.thyonline.taotao.common.utils.JsonUtils;
 import cn.thyonline.taotao.pojo.TbUser;
 import cn.thyonline.taotao.sso.service.UserLoginService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,12 +53,17 @@ public class UserLoginController {
      * @param token
      * @return
      */
-    @RequestMapping(value = "/user/token/{token}",method = RequestMethod.GET)
+    @RequestMapping(value = "/user/token/{token}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public String getUserByToken(@PathVariable String token){
+    public Object getUserByToken(@PathVariable String token,String callback){
         TaotaoResult result = loginService.getUserByToken(token);
+        if (StringUtils.isNotBlank(callback)){
+            MappingJacksonValue value = new MappingJacksonValue(result);
+            value.setJsonpFunction(callback);
+            return value;
+        }
         System.out.println(JsonUtils.objectToJson(result));
-        return JsonUtils.objectToJson(result);
+        return result;
     }
 
     /**

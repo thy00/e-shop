@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="taotao-cart-interface:war">
+    <output-path>$PROJECT_DIR$/taotao-cart/taotao-cart-interface/target</output-path>
+    <root id="archive" name="taotao-cart-interface.war">
+      <element id="artifact" artifact-name="taotao-cart-interface:war exploded" />
+    </root>
+  </artifact>
+</component>
