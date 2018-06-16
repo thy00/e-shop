@@ -23,6 +23,23 @@ public class CartServiceImpl implements CartService{
     private String TT_CART_REDIS_PRE_KEY;
 
     @Override
+    public TaotaoResult deleteByItemId(Long userId, Long itemId) {
+        client.hdel(TT_CART_REDIS_PRE_KEY+":"+userId, String.valueOf(itemId));
+        return TaotaoResult.ok();
+    }
+
+    @Override
+    public TaotaoResult updateCartItemByItemId(Long userId, Long itemId, Integer num) {
+        //在redis中查询商品信息
+        TbItem item = queryTbItemByUserIdAndItemId(userId, itemId);
+        if (item!=null){
+            item.setNum(num);
+            client.hset(TT_CART_REDIS_PRE_KEY+":"+userId, String.valueOf(item.getId()),JsonUtils.objectToJson(item));
+        }
+        return TaotaoResult.ok();
+    }
+
+    @Override
     public List<TbItem> queryTbItemByUserId(Long userId) {
         Map<String, String> map = client.hgetAll(TT_CART_REDIS_PRE_KEY + ":" + userId);
         Set<Map.Entry<String, String>> set = map.entrySet();

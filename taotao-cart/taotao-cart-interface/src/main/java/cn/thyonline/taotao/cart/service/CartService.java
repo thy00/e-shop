@@ -33,4 +33,21 @@ public interface CartService {
      */
     List<TbItem> queryTbItemByUserId(Long userId);
 
+    /**
+     * 根据用户名和商品ID更新
+     * @param userId
+     * @param itemId
+     * @param num
+     * @return
+     */
+    TaotaoResult updateCartItemByItemId(Long userId,Long itemId,Integer num);
+
+    /**
+     * 根据用户名和商品ID删除
+     * @param userId
+     * @param itemId
+     * @return
+     */
+    TaotaoResult deleteByItemId(Long userId,Long itemId);
+
 }

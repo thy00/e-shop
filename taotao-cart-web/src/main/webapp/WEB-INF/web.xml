@@ -34,9 +34,14 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <!--SEO：搜索引擎优化-->
     <servlet-name>taotao-cart-web</servlet-name>
+    <!-- SEO :搜索引擎优化   伪静态化-->
     <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>taotao-cart-web</servlet-name>
+    <!-- SEO :搜索引擎优化   伪静态化-->
+    <url-pattern>*.action</url-pattern>
   </servlet-mapping>
 
 </web-app>

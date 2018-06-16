@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,7 @@ public class CartController {
     @RequestMapping("/cart/add/{itemId}")
     public String addCart(@PathVariable Long itemId, Integer num, HttpServletRequest request, HttpServletResponse response){
         //1、获得用户信息
-        String token = CookieUtils.getCookieValue(request, "TT_TOKEN_KEY");
+        String token = CookieUtils.getCookieValue(request, TT_TOKEN_KEY);
         TaotaoResult result = loginService.getUserByToken(token);
         //2、判断是否登录
         TbItem item = itemService.getItemById(itemId);
@@ -91,7 +92,7 @@ public class CartController {
     @RequestMapping("/cart/cart")
     public String showCart(HttpServletRequest request, Model model){
         //判断是否登录，并分情况处理
-        String token = CookieUtils.getCookieValue(request, "TT_TOKEN_KEY");
+        String token = CookieUtils.getCookieValue(request, TT_TOKEN_KEY);
         if (StringUtils.isNotBlank(token)){
             TaotaoResult result = loginService.getUserByToken(token);
             if (result.getStatus()==200){//已经登录的情况
@@ -102,8 +103,106 @@ public class CartController {
                 List<TbItem> items = getCookieCartList(request);
                 model.addAttribute("cartList",items);
             }
+        }else {
+            List<TbItem> items = getCookieCartList(request);
+            model.addAttribute("cartList",items);
         }
         return "cart";
+    }
+
+    /**
+     * 修改购物车
+     * @param itemId
+     * @param num
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/cart/update/num/{itemId}/{num}")
+    @ResponseBody
+    public TaotaoResult updateCartItemByItemId(@PathVariable Long itemId,@PathVariable Integer num,HttpServletRequest request, HttpServletResponse response){
+        //1、判断是否登录，并分情况处理
+        String token = CookieUtils.getCookieValue(request, TT_TOKEN_KEY);
+        TaotaoResult cartResult=null;
+        if (StringUtils.isNotBlank(token)){
+            TaotaoResult result = loginService.getUserByToken(token);
+            if (result.getStatus()==200){//登录的情况
+                TbUser user=(TbUser) result.getData();
+                cartResult = cartService.updateCartItemByItemId(user.getId(), itemId, num);
+            }else {
+                cartResult=updateItemCartCookie(itemId,num,request,response);
+            }
+        }else {
+            cartResult=updateItemCartCookie(itemId,num,request,response);
+        }
+        return cartResult;
+    }
+
+    /**
+     * 删除购物车商品
+     * @param itemId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/cart/delete/{itemId}")
+    public String  deleteCartItemByItemId(@PathVariable Long itemId,HttpServletRequest request,HttpServletResponse response){
+        //1、判断是否登录，并分情况处理
+        String token = CookieUtils.getCookieValue(request, TT_TOKEN_KEY);
+        if (StringUtils.isNotBlank(token)){
+            TaotaoResult result = loginService.getUserByToken(token);
+            if (result.getStatus()==200){//登录成功
+                TbUser user=(TbUser) result.getData();
+                cartService.deleteByItemId(user.getId(), itemId);
+            }else {
+                deleteItemCartCookie(itemId,request,response);
+            }
+        }else {
+            deleteItemCartCookie(itemId,request,response);
+        }
+        return "redirect:/cart/cart.html";
+    }
+
+    private TaotaoResult deleteItemCartCookie(Long itemId, HttpServletRequest request, HttpServletResponse response) {
+//        System.out.println("商品标题是："+itemId);
+        //获取商品列表
+        List<TbItem> items = getCookieCartList(request);
+        boolean flag=false;
+        for (TbItem item:items){
+            if (item.getId()==itemId.longValue()){
+//                System.out.println("已经查到商品！");
+                items.remove(item);//删除商品
+                flag=true;
+                break;
+            }
+        }
+//        System.out.println("商品列表长度是："+items.size());
+        if (flag){
+            CookieUtils.setCookie(request, response, TT_CART_KEY, JsonUtils.objectToJson(items), 3600 * 24 * 7, true);
+        }else {
+            return TaotaoResult.build(400,"添加购物车失败");
+        }
+        return TaotaoResult.ok();
+    }
+
+
+    private TaotaoResult updateItemCartCookie(Long itemId, Integer num, HttpServletRequest request, HttpServletResponse response) {
+        //获取商品列表
+        List<TbItem> items = getCookieCartList(request);
+        boolean flag=false;
+        for (TbItem item:items){
+            if (item.getId()==itemId.longValue()){
+                item.setNum(num);
+                flag=true;
+                break;
+            }
+        }
+        if (flag){
+            CookieUtils.setCookie(request, response, TT_CART_KEY, JsonUtils.objectToJson(items), 3600 * 24 * 7, true);
+        }else {
+            return TaotaoResult.build(400,"添加购物车失败");
+        }
+        return TaotaoResult.ok();
     }
 
     private List<TbItem> getCookieCartList(HttpServletRequest request) {
@@ -114,5 +213,6 @@ public class CartController {
         }
         return new ArrayList<>();
     }
+
 
 }
