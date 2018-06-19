@@ -1,6 +1,12 @@
 # e-shop
 
-采用ssm框架，使用dubbo进行分布式管理的网上商城项目实战
+- 使用springmvc+spring+mybatis+maven
+- 使用mybatis官方逆向工程
+- 支持restful风格
+- 使用dubbo远程同步通信
+- 添加redis缓存机制
+- 使用solr管理索引库
+- 添加acticeMQ异步通讯
 
 ## 后台管理
 
@@ -101,6 +107,10 @@
  
         1、订单状态拦截，如未登录重定向到登录界面
         2、订单确认界面实现商品展示
+        
+ 2、订单生成
 
+        1、将订单信息整合成pojo实体封装
+        2、订单及商品编号储存在redis
 
 
